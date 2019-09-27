@@ -37,7 +37,7 @@ public:
     void SetMax(const Napi::CallbackInfo& info);
     Napi::Value getMax(const Napi::CallbackInfo& info);
     
-    // void Print();
+    Napi::Value Print(const Napi::CallbackInfo& info);
     
     void Insert (const Napi::CallbackInfo& info);
     

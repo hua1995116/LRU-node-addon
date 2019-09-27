@@ -10,4 +10,5 @@ list.Insert(12, 'hi');
 // list.Insert(13);
 
 // console.log(list.getMax());
-console.log(list.Search(10));
+// console.log(list.Search(10));
+console.log(list.Print());

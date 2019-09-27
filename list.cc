@@ -12,10 +12,13 @@ Napi::Object List::Init(Napi::Env env, Napi::Object exports) {
   Napi::Function func =
       DefineClass(env,
                   "List",
-                  {InstanceMethod("SetMax", &List::SetMax),
-                  InstanceMethod("getMax", &List::getMax),
-                   InstanceMethod("Insert", &List::Insert),
-                   InstanceMethod("Search", &List::Search)});
+                  {
+                    InstanceMethod("SetMax", &List::SetMax),
+                    InstanceMethod("getMax", &List::getMax),
+                    InstanceMethod("Insert", &List::Insert),
+                    InstanceMethod("Search", &List::Search),
+                    InstanceMethod("Print", &List::Print),
+                   });
 
   constructor = Napi::Persistent(func);
   constructor.SuppressDestruct();
@@ -54,14 +57,25 @@ Napi::Value List::getMax(const Napi::CallbackInfo& info) {
     return Napi::Number::New(info.Env(), num);
 }
 
-// void List::Print() {
-//     Node *p = head;
+Napi::Value List::Print(const Napi::CallbackInfo& info) {
+    Node *p = this->head;
+    Napi::Array arr = Napi::Array::New(info.Env(), this->count);
+
+    int i = 0;
+    while(p != NULL) {
+        int key = p->data;
+        map<int ,string >::iterator l_it;
+        l_it = this->cachemap.find(key);
+
+        if(l_it != this->cachemap.end()) {
+            arr[i] = Napi::String::New(info.Env(), l_it->second);
+        }
+        i++;
+        p = p->next;
+    }
     
-//     while(p != NULL) {
-//         cout << p->data << endl;
-//         p = p->next;
-//     }
-// }
+    return arr;
+}
 
 // void List::Delete(int da) {
 //     Node *p = head, *q = head;
@@ -98,9 +112,6 @@ void List::Insert(const Napi::CallbackInfo& info) {
     int da = key.Int32Value();
 
     if(this->count >= this->maxCount) {
-        // if(this->tail->prev != NULL) {
-            
-        // }
         this->tail->prev->next = NULL;
         this->tail = this->tail->prev;
         
@@ -150,12 +161,9 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
     int count = -1;
     int i = 0;
     
-    // std::cout << da << std::endl;
 
     while( p!= NULL) {
-        // std::cout << p->data << std::endl;
         if(p->data == da) {
-            // std::cout << da << std::endl;
             count = i;
             break;
         }
@@ -163,7 +171,6 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
         i ++;
     }
     if(count != -1) {
-        // std::cout << "成功" << std::endl;
         p->prev->next = p->next;
         if(p->next != NULL) {
             p->next->prev = p->prev;
@@ -172,7 +179,6 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
         p->prev = NULL;
         this->head->prev = p;
         this->head = p;
-        // std::cout << "value index is " << da << std::endl;
         map<int ,string >::iterator l_it;
         l_it = this->cachemap.find(da);
         if(l_it == this->cachemap.end()) {
@@ -183,7 +189,6 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
 
     } else {
         return Napi::String::New(info.Env(), "");
-        // cout << "can't find " << da << endl;
     }
     return Napi::String::New(info.Env(), "");
 }
