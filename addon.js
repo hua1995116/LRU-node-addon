@@ -1,14 +1,13 @@
-var addon = require('bindings')('addon');
+const addon = require('bindings')('addon');
 
-var fn = new addon.List();
-// console.log(fn()); // 'hello world'
-// fn.SetMax(10);
+const list = new addon.List();
+// list.SetMax(10);
 
-fn.Insert(10);
-fn.Insert(11);
-fn.Insert(12);
-// fn.Insert(12);
-// fn.Insert(13);
+list.Insert(10, 'hello');
+list.Insert(11, 'world');
+list.Insert(12, 'hi');
+// list.Insert(12);
+// list.Insert(13);
 
-console.log(fn.getMax());
-console.log(fn.Search(10));
+// console.log(list.getMax());
+console.log(list.Search(10));

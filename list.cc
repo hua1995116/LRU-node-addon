@@ -1,5 +1,8 @@
 #include "list.h"
 #include <iostream>
+#include <map>
+#include <iostream>
+#include <string>
 
 Napi::FunctionReference List::constructor;
 
@@ -86,12 +89,13 @@ void List::Insert(const Napi::CallbackInfo& info) {
     int length = info.Length();
     Napi::Env env = info.Env();
 
-     if (length <= 0 || !info[0].IsNumber()) {
-        Napi::TypeError::New(env, "Number expected").ThrowAsJavaScriptException();
+     if (length <= 1 || !info[0].IsNumber() || !info[1].IsString()) {
+        Napi::TypeError::New(env, "key and value expected").ThrowAsJavaScriptException();
     }
-    Napi::Number value = info[0].As<Napi::Number>();
+    Napi::Number key = info[0].As<Napi::Number>();
+    Napi::String value = info[1].As<Napi::String>();
 
-    int da = value.Int32Value();
+    int da = key.Int32Value();
 
     if(this->count >= this->maxCount) {
         // if(this->tail->prev != NULL) {
@@ -101,6 +105,7 @@ void List::Insert(const Napi::CallbackInfo& info) {
         this->tail = this->tail->prev;
         
         Node *p = new Node(da);
+        this->cachemap.insert(std::pair<int, string>(da, value));
         p->next = this->head;
         this->head->prev = p;
         this->head = p;
@@ -110,12 +115,14 @@ void List::Insert(const Napi::CallbackInfo& info) {
     }
     if(this->head == NULL) {
         this->head = this->tail = new Node(da);
+        this->cachemap.insert(std::pair<int, string>(da, value));
         this->head->next = NULL;
         this->head->prev = NULL;
         this->tail->next = NULL;
         this->tail->prev = NULL;
     } else {
         Node *p = new Node(da);
+        this->cachemap.insert(std::pair<int, string>(da, value));
         this->head->prev = p;
         p->next = this->head;
         p->prev = NULL;
@@ -137,7 +144,7 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
     Node *p = this->head;
     
     if(p == NULL) {
-        return Napi::Number::New(info.Env(), -1);
+        return Napi::String::New(info.Env(), "");
     }
     
     int count = -1;
@@ -166,10 +173,17 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
         this->head->prev = p;
         this->head = p;
         // std::cout << "value index is " << da << std::endl;
-        return Napi::Number::New(info.Env(), da);
+        map<int ,string >::iterator l_it;
+        l_it = this->cachemap.find(da);
+        if(l_it == this->cachemap.end()) {
+            return Napi::String::New(info.Env(), "");
+        } else {
+            return Napi::String::New(info.Env(), l_it->second);
+        }
+
     } else {
-        return Napi::Number::New(info.Env(), -1);
+        return Napi::String::New(info.Env(), "");
         // cout << "can't find " << da << endl;
     }
-    return Napi::Number::New(info.Env(), -1);
+    return Napi::String::New(info.Env(), "");
 }

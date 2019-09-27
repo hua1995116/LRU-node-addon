@@ -2,6 +2,11 @@
 #define list_h
 
 #include <napi.h>
+#include <map>
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 class Node {
 public:
@@ -20,6 +25,7 @@ private:
     Node *head, *tail;
     int count = 0;
     int maxCount = 200;
+    map <int, string> cachemap;
 public:
     static Napi::Object Init(Napi::Env env, Napi::Object exports);
     static Napi::FunctionReference constructor;
