@@ -1,0 +1,16 @@
+{
+  "name": "LRU-node-addon",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "build:debug": "node-gyp configure && node-gyp build --debug",
+    "build:release": "node-gyp configure && node-gyp build"
+  },
+  "main": "addon.js",
+  "private": true,
+  "gypfile": true,
+  "dependencies": {
+    "bindings": "~1.2.1",
+    "node-addon-api": "^1.0.0"
+  }
+}

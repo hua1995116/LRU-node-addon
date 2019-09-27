@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "(lldb) Launch",
+        "type": "cppdbg",
+        "request": "launch",
+        // "preLaunchTask": "npm: build:debug",
+        "program": "/Users/huayifeng/.nvm/versions/node/v10.16.0/bin/node",
+        "cwd": "${workspaceFolder}",
+        "args": [
+            "${workspaceFolder}/addon.js"
+        ],
+        "MIMode": "lldb",
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "JS Debug Build",
+        "console": "integratedTerminal",
+        "program": "${workspaceFolder}/addon.js",
+        "preLaunchTask": "npm: build:debug"
+      },
+      {
+        "name": "Windows Attach",
+        "type": "cppvsdbg",
+        "request": "attach",
+        "processId": "${command:pickProcess}"
+      }
+    ]
+  }
