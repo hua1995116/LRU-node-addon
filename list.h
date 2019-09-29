@@ -10,11 +10,11 @@ using namespace std;
 
 class Node {
 public:
-    int data;
+    string data;
     Node *next;
     Node *prev;
     
-    Node(int da = 0, Node *p = NULL) {
+    Node(string da = 0, Node *p = NULL) {
         this->data = da;
         this->next = p;
     }
@@ -25,7 +25,7 @@ private:
     Node *head, *tail;
     int count = 0;
     int maxCount = 200;
-    map <int, string> cachemap;
+    map <string, string> cachemap;
 public:
     static Napi::Object Init(Napi::Env env, Napi::Object exports);
     static Napi::FunctionReference constructor;
