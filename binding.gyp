@@ -1,10 +1,10 @@
 {
   "targets": [
     {
-      "target_name": "addon",
+      "target_name": "LRU_node_addon",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      "sources": [ "addon.cc", "list.cc" ],
+      "sources": [ "bingding.cc", "list.cc" ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"
       ],

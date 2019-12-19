@@ -1,6 +1,6 @@
-const addon = require('bindings')('addon');
+const List = require('bindings')('LRU_node_addon').List;
 
-const list = new addon.List();
+const list = new List();
 list.SetMax(10);
 
 list.Insert('10', 'hello');
@@ -16,6 +16,5 @@ list.Insert('19', 'hi8');
 list.Insert('20', 'hi9');
 list.Insert('21', 'hi10');
 
-// console.log(list.getMax());
 console.log(list.Search('10'));
 console.log(list.Print());

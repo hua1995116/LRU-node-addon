@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 
+#define INITVALUE ""
+
 Napi::FunctionReference List::constructor;
 
 Napi::Object List::Init(Napi::Env env, Napi::Object exports) {
@@ -28,8 +30,6 @@ Napi::Object List::Init(Napi::Env env, Napi::Object exports) {
 }
 
 List::List(const Napi::CallbackInfo& info) : Napi::ObjectWrap<List>(info) {
-    Napi::Env env = info.Env();
-    Napi::HandleScope scope(env);
     this->head = this->tail = NULL;
 }
 
@@ -148,15 +148,15 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
      if (length <= 0 || !info[0].IsString()) {
-        Napi::TypeError::New(env, "Number expected").ThrowAsJavaScriptException();
+        Napi::TypeError::New(env, "String expected").ThrowAsJavaScriptException();
     }
-    Napi::Number value = info[0].As<Napi::Number>();
+    Napi::String value = info[0].As<Napi::String>();
     string da = value.ToString();
 
     Node *p = this->head;
     
     if(p == NULL) {
-        return Napi::String::New(info.Env(), "");
+        return Napi::String::New(info.Env(), INITVALUE);
     }
     
     int count = -1;
@@ -183,13 +183,13 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
         map<string ,string >::iterator l_it;
         l_it = this->cachemap.find(da);
         if(l_it == this->cachemap.end()) {
-            return Napi::String::New(info.Env(), "");
+            return Napi::String::New(info.Env(), INITVALUE);
         } else {
             return Napi::String::New(info.Env(), l_it->second);
         }
 
     } else {
-        return Napi::String::New(info.Env(), "");
+        return Napi::String::New(info.Env(), INITVALUE);
     }
-    return Napi::String::New(info.Env(), "");
+    return Napi::String::New(info.Env(), INITVALUE);
 }
