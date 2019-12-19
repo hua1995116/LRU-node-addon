@@ -1,8 +1,9 @@
 #include "list.h"
 #include <iostream>
-#include <map>
 #include <iostream>
 #include <string>
+#include <unordered_map>
+
 
 #define INITVALUE ""
 
@@ -65,7 +66,7 @@ Napi::Value List::Print(const Napi::CallbackInfo& info) {
     int i = 0;
     while(p != NULL) {
         string key = p->data;
-        map<string ,string >::iterator l_it;
+        unordered_map<string ,string >::iterator l_it;
         l_it = this->cachemap.find(key);
 
         if(l_it != this->cachemap.end()) {
@@ -180,7 +181,7 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
         p->prev = NULL;
         this->head->prev = p;
         this->head = p;
-        map<string ,string >::iterator l_it;
+        unordered_map<string ,string >::iterator l_it;
         l_it = this->cachemap.find(da);
         if(l_it == this->cachemap.end()) {
             return Napi::String::New(info.Env(), INITVALUE);

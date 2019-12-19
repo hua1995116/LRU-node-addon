@@ -2,7 +2,7 @@
 #define list_h
 
 #include <napi.h>
-#include <map>
+#include <unordered_map>
 #include <iostream>
 #include <string>
 
@@ -25,7 +25,7 @@ private:
     Node *head, *tail;
     int count = 0;
     int maxCount = 200;
-    map <string, string> cachemap;
+    unordered_map <string, string> cachemap;
 public:
     static Napi::Object Init(Napi::Env env, Napi::Object exports);
     static Napi::FunctionReference constructor;
