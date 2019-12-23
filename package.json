@@ -6,7 +6,7 @@
     "build:debug": "node-gyp configure && node-gyp build --debug",
     "build:release": "node-gyp configure && node-gyp build"
   },
-  "main": "addon.js",
+  "main": "index.js",
   "private": true,
   "gypfile": true,
   "dependencies": {

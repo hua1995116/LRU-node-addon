@@ -9,7 +9,7 @@
         "program": "/Users/huayifeng/.nvm/versions/node/v10.16.0/bin/node",
         "cwd": "${workspaceFolder}",
         "args": [
-            "${workspaceFolder}/addon.js"
+            "${workspaceFolder}/test.js"
         ],
         "MIMode": "lldb",
       },
@@ -18,7 +18,7 @@
         "request": "launch",
         "name": "JS Debug Build",
         "console": "integratedTerminal",
-        "program": "${workspaceFolder}/addon.js",
+        "program": "${workspaceFolder}/test.js",
         "preLaunchTask": "npm: build:debug"
       },
       {

@@ -1,6 +1,5 @@
 #include "list.h"
 #include <iostream>
-#include <iostream>
 #include <string>
 #include <unordered_map>
 
@@ -163,7 +162,6 @@ Napi::Value List::Search(const Napi::CallbackInfo& info) {
     int count = -1;
     int i = 0;
     
-
     while( p!= NULL) {
         if(p->data == da) {
             count = i;
