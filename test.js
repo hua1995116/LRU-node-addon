@@ -4,7 +4,7 @@ const list = new List();
 list.SetMax(10);
 
 list.Insert("10", "hello");
-list.Insert("1 1", "world");
+list.Insert("11", "world");
 list.Insert("12", "hi1");
 list.Insert("13", "hi2");
 list.Insert("14", "hi3");

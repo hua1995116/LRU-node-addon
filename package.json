@@ -7,7 +7,11 @@
     "build:release": "node-gyp configure && node-gyp build"
   },
   "main": "index.js",
-  "files": ["src", "index.js", "binding.gyp"],
+  "files": [
+    "src",
+    "index.js",
+    "binding.gyp"
+  ],
   "gypfile": true,
   "dependencies": {
     "bindings": "~1.2.1",
