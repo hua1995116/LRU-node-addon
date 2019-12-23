@@ -1,13 +1,13 @@
 {
-  "name": "LRU-node-addon",
-  "version": "1.0.0",
+  "name": "lru-node-addon",
+  "version": "1.0.1",
   "description": "",
   "scripts": {
     "build:debug": "node-gyp configure && node-gyp build --debug",
     "build:release": "node-gyp configure && node-gyp build"
   },
   "main": "index.js",
-  "private": true,
+  "files": ["src", "index.js", "binding.gyp"],
   "gypfile": true,
   "dependencies": {
     "bindings": "~1.2.1",
